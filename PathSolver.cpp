@@ -56,92 +56,29 @@ void PathSolver::forwardSearch(Env env){
     std::cout << "Left :    " << startNode->readLeftCharacter(env) << std::endl;
     std::cout << "Right :   " << startNode->readRightCharacter(env) << std::endl;
 
+    // std::cout << openList->getLength() << std::endl;
 
     delete currentNode;
     currentNode = startNode;
 
-    // nodesExplored
-
     do{
+        if((currentNode->readTopCharacter(env) == SYMBOL_EMPTY || currentNode->readTopCharacter(env) == SYMBOL_GOAL) && 
+        !openList->contains(currentNode->getTopNode(env)) && !nodesExplored->contains(currentNode->getTopNode(env)) )
+            {
+                openList->addElement(new Node(currentNode->getRow()-1, currentNode->getCol(), currentNode->getDistanceTraveled()+1));
+                std::cout << "Up node: (" << openList->getNode(openList->getLength()-1)->getCol() << "," << 
+                                        openList->getNode(openList->getLength()-1)->getRow() << ", " <<
+                                        openList->getNode(openList->getLength()-1)->getDistanceTraveled()  << ") added to open" << std::endl;
 
-        // reads and checks the TOP
-        if(currentNode->readTopCharacter(env) == SYMBOL_EMPTY || currentNode->readTopCharacter(env) == SYMBOL_GOAL){
-            bool checker = false;
-            // loop to add to open list
-            for(int i = 0; i < openList->getLength(); i++){
-                // add the element
-                if((openList->getLength() == 1) || (!currentNode->equalTo(openList->getNode(i)) && /*!currentNode->equalTo(nodesExplored->getNode(i)) && */checker == false)){
-                    openList->addElement(new Node(currentNode->getRow()-1, currentNode->getCol(), currentNode->getDistanceTraveled()+1));
-                    //PRINT will remove later
-                    std::cout << "Up node: (" << openList->getNode(openList->getLength()-1)->getCol() << "," << 
-                            openList->getNode(openList->getLength()-1)->getRow() << ", " <<
-                            openList->getNode(openList->getLength()-1)->getDistanceTraveled()  << ") added to open" << std::endl;
-                    
-                    checker = true;
-                }
             }
-        }
-
-        //reads and checks the BOTTOM
-        if(currentNode->readBottomCharacter(env) == SYMBOL_EMPTY || currentNode->readBottomCharacter(env) == SYMBOL_GOAL){
-            bool checker = false;
-            // loop to add to open list
-            for(int i = 0; i < openList->getLength(); i++){
-                // add the element
-                if((openList->getLength() == 1) || (!currentNode->equalTo(openList->getNode(i)) && /*!currentNode->equalTo(nodesExplored->getNode(i)) && */checker == false)){
-                    openList->addElement(new Node(currentNode->getRow()+1, currentNode->getCol(), currentNode->getDistanceTraveled()+1));
-                    //PRINT will remove later
-                    std::cout << "Down node: (" << openList->getNode(openList->getLength()-1)->getCol() << "," << 
-                            openList->getNode(openList->getLength()-1)->getRow() << ", " <<
-                            openList->getNode(openList->getLength()-1)->getDistanceTraveled()  << ") added to open" << std::endl;
-                    
-                    checker = true;
-                }
-            }
-        }
-
-        //reads and checks the LEFT
-        if(currentNode->readLeftCharacter(env) == SYMBOL_EMPTY || currentNode->readLeftCharacter(env) == SYMBOL_GOAL){
-            bool checker = false;
-            // loop to add to open list
-            for(int i = 0; i < openList->getLength(); i++){
-                // add the element
-                if((openList->getLength() == 1) || (!currentNode->equalTo(openList->getNode(i)) && /*!currentNode->equalTo(nodesExplored->getNode(i)) && */checker == false)){
-                    openList->addElement(new Node(currentNode->getRow(), currentNode->getCol()-1, currentNode->getDistanceTraveled()+1));
-                    //PRINT will remove later
-                    std::cout << "Left node: (" << openList->getNode(openList->getLength()-1)->getCol() << "," << 
-                            openList->getNode(openList->getLength()-1)->getRow() << ", " <<
-                            openList->getNode(openList->getLength()-1)->getDistanceTraveled()  << ") added to open" << std::endl;
-                    
-                    checker = true;
-                }
-            }
-        }
-
-        //reads and checks the RIGHT
-        if(currentNode->readRightCharacter(env) == SYMBOL_EMPTY || currentNode->readRightCharacter(env) == SYMBOL_GOAL){
-            bool checker = false;
-            // loop to add to open list
-            for(int i = 0; i < openList->getLength(); i++){
-                // add the element
-                if((openList->getLength() == 1) || (!currentNode->equalTo(openList->getNode(i)) && /*!currentNode->equalTo(nodesExplored->getNode(i)) && */checker == false)){
-                    openList->addElement(new Node(currentNode->getRow(), currentNode->getCol()+1, currentNode->getDistanceTraveled()+1));
-                    //PRINT will remove later
-                    std::cout << "Right node: (" << openList->getNode(openList->getLength()-1)->getCol() << "," << 
-                            openList->getNode(openList->getLength()-1)->getRow() << ", " <<
-                            openList->getNode(openList->getLength()-1)->getDistanceTraveled()  << ") added to open" << std::endl;
-                    
-                    checker = true;
-                }
-            }
-        }
-
         
 
+            
         for(int i = 0; i < openList->getLength(); i++){
 
             if(openList->getNode(i)->getEstimatedDist2Goal(goalNode) <= currentNode->getEstimatedDist2Goal(goalNode) && 
-                !nodesExplored->contains(openList->getNode(i)) ){
+                !nodesExplored->contains(*(openList->getNode(i))) ){
+
                 startNode = openList->getNode(i);
             }
 
@@ -152,7 +89,104 @@ void PathSolver::forwardSearch(Env env){
                                 currentNode->getDistanceTraveled() << ") added to closed list" << std::endl;
         
         currentNode = startNode;    
-    }while(!nodesExplored->getNode(nodesExplored->getLength() - 1)->equalTo(goalNode) ); 
+        
+    }while(/*nodesExplored->contains(*goalNode)*/ !nodesExplored->getNode(nodesExplored->getLength() - 1)->equalTo(goalNode));
+
+
+    // do{
+
+
+    //     // change this completely reeeeeeeeeee use contains and check if nodes explored contains
+
+    //     // reads and checks the TOP
+    //     // if(currentNode->readTopCharacter(env) == SYMBOL_EMPTY || currentNode->readTopCharacter(env) == SYMBOL_GOAL){
+    //     //     bool checker = false;
+    //     //     // loop to add to open list
+    //     //     for(int i = 0; i < openList->getLength(); i++){
+    //     //         // add the element
+    //     //         if((openList->getLength() == 1) || (!currentNode->equalTo(openList->getNode(i)) && /*!currentNode->equalTo(nodesExplored->getNode(i)) && */checker == false)){
+    //     //             openList->addElement(new Node(currentNode->getRow()-1, currentNode->getCol(), currentNode->getDistanceTraveled()+1));
+    //     //             //PRINT will remove later
+    //     //             std::cout << "Up node: (" << openList->getNode(openList->getLength()-1)->getCol() << "," << 
+    //     //                     openList->getNode(openList->getLength()-1)->getRow() << ", " <<
+    //     //                     openList->getNode(openList->getLength()-1)->getDistanceTraveled()  << ") added to open" << std::endl;
+                    
+    //     //             checker = true;
+    //     //         }
+    //     //     }
+    //     // }
+
+    //     //reads and checks the BOTTOM
+    //     if(currentNode->readBottomCharacter(env) == SYMBOL_EMPTY || currentNode->readBottomCharacter(env) == SYMBOL_GOAL){
+    //         bool checker = false;
+    //         // loop to add to open list
+    //         for(int i = 0; i < openList->getLength(); i++){
+    //             // add the element
+    //             if((openList->getLength() == 1) || (!currentNode->equalTo(openList->getNode(i)) && /*!currentNode->equalTo(nodesExplored->getNode(i)) && */checker == false)){
+    //                 openList->addElement(new Node(currentNode->getRow()+1, currentNode->getCol(), currentNode->getDistanceTraveled()+1));
+    //                 //PRINT will remove later
+    //                 std::cout << "Down node: (" << openList->getNode(openList->getLength()-1)->getCol() << "," << 
+    //                         openList->getNode(openList->getLength()-1)->getRow() << ", " <<
+    //                         openList->getNode(openList->getLength()-1)->getDistanceTraveled()  << ") added to open" << std::endl;
+                    
+    //                 checker = true;
+    //             }
+    //         }
+    //     }
+
+    //     //reads and checks the LEFT
+    //     if(currentNode->readLeftCharacter(env) == SYMBOL_EMPTY || currentNode->readLeftCharacter(env) == SYMBOL_GOAL){
+    //         bool checker = false;
+    //         // loop to add to open list
+    //         for(int i = 0; i < openList->getLength(); i++){
+    //             // add the element
+    //             if((openList->getLength() == 1) || (!currentNode->equalTo(openList->getNode(i)) && /*!currentNode->equalTo(nodesExplored->getNode(i)) && */checker == false)){
+    //                 openList->addElement(new Node(currentNode->getRow(), currentNode->getCol()-1, currentNode->getDistanceTraveled()+1));
+    //                 //PRINT will remove later
+    //                 std::cout << "Left node: (" << openList->getNode(openList->getLength()-1)->getCol() << "," << 
+    //                         openList->getNode(openList->getLength()-1)->getRow() << ", " <<
+    //                         openList->getNode(openList->getLength()-1)->getDistanceTraveled()  << ") added to open" << std::endl;
+                    
+    //                 checker = true;
+    //             }
+    //         }
+    //     }
+
+    //     //reads and checks the RIGHT
+    //     if(currentNode->readRightCharacter(env) == SYMBOL_EMPTY || currentNode->readRightCharacter(env) == SYMBOL_GOAL){
+    //         bool checker = false;
+    //         // loop to add to open list
+    //         for(int i = 0; i < openList->getLength(); i++){
+    //             // add the element
+    //             if((openList->getLength() == 1) || (!currentNode->equalTo(openList->getNode(i)) && /*!currentNode->equalTo(nodesExplored->getNode(i)) && */checker == false)){
+    //                 openList->addElement(new Node(currentNode->getRow(), currentNode->getCol()+1, currentNode->getDistanceTraveled()+1));
+    //                 //PRINT will remove later
+    //                 std::cout << "Right node: (" << openList->getNode(openList->getLength()-1)->getCol() << "," << 
+    //                         openList->getNode(openList->getLength()-1)->getRow() << ", " <<
+    //                         openList->getNode(openList->getLength()-1)->getDistanceTraveled()  << ") added to open" << std::endl;
+                    
+    //                 checker = true;
+    //             }
+    //         }
+    //     }
+
+        
+
+    //     for(int i = 0; i < openList->getLength(); i++){
+
+    //         if(openList->getNode(i)->getEstimatedDist2Goal(goalNode) <= currentNode->getEstimatedDist2Goal(goalNode) && 
+    //             !nodesExplored->contains(openList->getNode(i)) ){
+    //             startNode = openList->getNode(i);
+    //         }
+
+    //     }
+        
+    //     nodesExplored->addElement(currentNode);
+    //     std::cout << "Current node: (" << currentNode->getCol() << "," << currentNode->getRow() << "," <<
+    //                             currentNode->getDistanceTraveled() << ") added to closed list" << std::endl;
+        
+    //     currentNode = startNode;    
+    // }while(!nodesExplored->getNode(nodesExplored->getLength() - 1)->equalTo(goalNode) ); 
     std::cout << "You reached there!" << std::endl;
 
     
@@ -176,19 +210,6 @@ to goal and, is not in the closed-list C.
 11 end
 12 Add p to closed-list C.
 13 until The robot reaches the goal, that is, p == G, or no such position p can be found*/
-
-
-// if(startNode->readBottomCharacter(env) == '.'){
-        //     std::cout << "there is a free space on the bottom" <<std::endl;
-        // }
-        // if(startNode->readLeftCharacter(env) == '.'){
-        //     std::cout << "there is a free space on the left" <<std::endl;
-        // }
-        // if(startNode->readRightCharacter(env) == '.'){
-        //     std::cout << "there is a free space on the Right" <<std::endl;
-        // }
-
-
 
 
 }

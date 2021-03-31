@@ -43,11 +43,11 @@ Node* NodeList::getNode(int i){
 
 //-----------------------------
 
-bool NodeList::contains(Node* node){
+bool NodeList::contains(Node node){
     bool found = false;
     for(int i = 0; i < this->length; i++){
 
-        if(this->getNode(i)->equalTo(node)){
+        if(this->getNode(i)->equalTo(&node)){
             found = true;
         }
     }

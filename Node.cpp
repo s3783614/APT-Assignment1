@@ -88,3 +88,10 @@ char Node::readRightCharacter(Env env){
     return env[rowRead][colRead];
 }
 
+
+Node Node::getTopNode(Env env){
+    int rowRead = (this->row-1);
+    int colRead = (this->col);
+    int distTravRead = (this->dist_traveled);
+    return Node(rowRead, colRead, distTravRead);
+}

@@ -31,7 +31,7 @@ public:
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
     
-    bool contains(Node* node);
+    bool contains(Node node);
 
 private:
     /*                                           */

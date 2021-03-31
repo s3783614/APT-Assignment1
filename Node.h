@@ -39,6 +39,7 @@ public:
     char readLeftCharacter(Env env);
     char readRightCharacter(Env env);
 
+    Node getTopNode(Env env);
 
 private:
     /*                                           */
