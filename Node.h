@@ -30,7 +30,7 @@ public:
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
 
-    bool equalTo(Node* node);
+    bool equalTo(Node node);
     
     char getCurrentPosition(Env env);
 
@@ -40,6 +40,9 @@ public:
     char readRightCharacter(Env env);
 
     Node getTopNode(Env env);
+    Node getBottomNode(Env env);
+    Node getLeftNode(Env env);
+    Node getRightNode(Env env);
 
 private:
     /*                                           */

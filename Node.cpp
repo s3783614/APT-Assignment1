@@ -51,10 +51,10 @@ int Node::getEstimatedDist2Goal(Node* goal){
     
 //--------------------------------
 
-bool Node::equalTo(Node* node){
+bool Node::equalTo(Node node){
     bool checker = false;
 
-    if(this->row == node->getRow() && this->col == node->getCol()){
+    if(this->row == node.getRow() && this->col == node.getCol()){
         checker = true;
     }
     return checker;
@@ -92,6 +92,27 @@ char Node::readRightCharacter(Env env){
 Node Node::getTopNode(Env env){
     int rowRead = (this->row-1);
     int colRead = (this->col);
-    int distTravRead = (this->dist_traveled);
+    int distTravRead = (this->dist_traveled+1);
+    return Node(rowRead, colRead, distTravRead);
+}
+
+Node Node::getBottomNode(Env env){
+    int rowRead = (this->row+1);
+    int colRead = (this->col);
+    int distTravRead = (this->dist_traveled+1);
+    return Node(rowRead, colRead, distTravRead);
+}
+
+Node Node::getLeftNode(Env env){
+    int rowRead = (this->row);
+    int colRead = (this->col-1);
+    int distTravRead = (this->dist_traveled+1);
+    return Node(rowRead, colRead, distTravRead);
+}
+
+Node Node::getRightNode(Env env){
+    int rowRead = (this->row);
+    int colRead = (this->col+1);
+    int distTravRead = (this->dist_traveled+1);
     return Node(rowRead, colRead, distTravRead);
 }

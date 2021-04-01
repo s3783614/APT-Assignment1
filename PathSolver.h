@@ -31,7 +31,7 @@ public:
     /*                                           */
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
-
+    void printSolution(Env env);
 private:
     /*                                           */
     /* DO NOT MOFIFY THESE VARIABLES             */
@@ -45,6 +45,7 @@ private:
     /*                                           */
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
+    
     
 };
 

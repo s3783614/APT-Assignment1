@@ -61,7 +61,12 @@ void PathSolver::forwardSearch(Env env){
     delete currentNode;
     currentNode = startNode;
 
+    Node* tempNode = new Node(0,0,10000);
+    Node* closest = nullptr;
+
     do{
+    // for(int i = 0)
+        //checks the top character to see for free space - then checks for the node in availability
         if((currentNode->readTopCharacter(env) == SYMBOL_EMPTY || currentNode->readTopCharacter(env) == SYMBOL_GOAL) && 
         !openList->contains(currentNode->getTopNode(env)) && !nodesExplored->contains(currentNode->getTopNode(env)) )
             {
@@ -72,14 +77,51 @@ void PathSolver::forwardSearch(Env env){
 
             }
         
+        if((currentNode->readBottomCharacter(env) == SYMBOL_EMPTY || currentNode->readBottomCharacter(env) == SYMBOL_GOAL) && 
+        !openList->contains(currentNode->getBottomNode(env)) && !nodesExplored->contains(currentNode->getBottomNode(env)) )
+            {
+                openList->addElement(new Node(currentNode->getRow()+1, currentNode->getCol(), currentNode->getDistanceTraveled()+1));
+                std::cout << "Down node: (" << openList->getNode(openList->getLength()-1)->getCol() << "," << 
+                                        openList->getNode(openList->getLength()-1)->getRow() << ", " <<
+                                        openList->getNode(openList->getLength()-1)->getDistanceTraveled()  << ") added to open" << std::endl;
 
-            
+            }
+        
+        if((currentNode->readLeftCharacter(env) == SYMBOL_EMPTY || currentNode->readLeftCharacter(env) == SYMBOL_GOAL) && 
+        !openList->contains(currentNode->getLeftNode(env)) && !nodesExplored->contains(currentNode->getLeftNode(env)) )
+            {
+                openList->addElement(new Node(currentNode->getRow(), currentNode->getCol()-1, currentNode->getDistanceTraveled()+1));
+                std::cout << "Left node: (" << openList->getNode(openList->getLength()-1)->getCol() << "," << 
+                                        openList->getNode(openList->getLength()-1)->getRow() << ", " <<
+                                        openList->getNode(openList->getLength()-1)->getDistanceTraveled()  << ") added to open" << std::endl;
+
+            }
+        
+        if((currentNode->readRightCharacter(env) == SYMBOL_EMPTY || currentNode->readRightCharacter(env) == SYMBOL_GOAL) && 
+        !openList->contains(currentNode->getRightNode(env)) && !nodesExplored->contains(currentNode->getRightNode(env)) )
+            {
+                openList->addElement(new Node(currentNode->getRow(), currentNode->getCol()+1, currentNode->getDistanceTraveled()+1));
+                std::cout << "Right node: (" << openList->getNode(openList->getLength()-1)->getCol() << "," << 
+                                        openList->getNode(openList->getLength()-1)->getRow() << ", " <<
+                                        openList->getNode(openList->getLength()-1)->getDistanceTraveled()  << ") added to open" << std::endl;
+
+            }
+
+        closest = tempNode;
+        std::cout << "ENTERING FOR LOOP" << std::endl;
         for(int i = 0; i < openList->getLength(); i++){
 
-            if(openList->getNode(i)->getEstimatedDist2Goal(goalNode) <= currentNode->getEstimatedDist2Goal(goalNode) && 
-                !nodesExplored->contains(*(openList->getNode(i))) ){
+            // std::cout << "openList Node i estimated distance: " << openList->getNode(i)->getEstimatedDist2Goal(goalNode) << std::endl;
+            // std::cout << "Closest estimated distance: " << closest->getEstimatedDist2Goal(goalNode) << std::endl;
+            // std::cout << "openList node i NOT explored: " << !nodesExplored->contains(*(openList->getNode(i))) << std::endl;
+            // std::cout << "openList node i NOT equal to current: " << !openList->getNode(i)->equalTo(*currentNode) << std::endl;
+            // std::cout << "-------------------------" << std::endl;
 
-                startNode = openList->getNode(i);
+            if(openList->getNode(i)->getEstimatedDist2Goal(goalNode) <= closest->getEstimatedDist2Goal(goalNode) &&
+              !nodesExplored->contains(*(openList->getNode(i))) && !openList->getNode(i)->equalTo(*currentNode) ){
+                std::cout << "Closest node distance now set to " << openList->getNode(i)->getEstimatedDist2Goal(goalNode) << std::endl;
+                closest = openList->getNode(i);
+                std::cout << "Closest node: (" << closest->getCol()  << ", "<< closest->getRow() << ", " << closest->getDistanceTraveled() << ") changed" << std::endl;
             }
 
         }
@@ -88,10 +130,11 @@ void PathSolver::forwardSearch(Env env){
         std::cout << "Current node: (" << currentNode->getCol() << "," << currentNode->getRow() << "," <<
                                 currentNode->getDistanceTraveled() << ") added to closed list" << std::endl;
         
-        currentNode = startNode;    
+        currentNode = closest;
         
-    }while(/*nodesExplored->contains(*goalNode)*/ !nodesExplored->getNode(nodesExplored->getLength() - 1)->equalTo(goalNode));
-
+    }while(!nodesExplored->getNode(nodesExplored->getLength() - 1)->equalTo(*goalNode));
+    
+    printSolution(env);
 
     // do{
 
@@ -215,7 +258,23 @@ to goal and, is not in the closed-list C.
 }
 
 
+void PathSolver::printSolution(Env env){
 
+    for(int row = 0; row < ENV_DIM; row++){
+        for(int col = 0; col < ENV_DIM; col++){
+
+            if(nodesExplored->contains(Node(row,col,0))){
+                std::cout << "o";
+            }
+            else{
+                std::cout << env[row][col];
+            }
+            
+        }
+        std::cout << " " << row << std::endl;
+    }
+
+}
 
 
 
