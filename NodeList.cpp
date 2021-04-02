@@ -11,7 +11,9 @@ NodeList::NodeList(){
 NodeList::~NodeList(){
     // TODO
 
-    // delete[] nodes; //deletes the node pointer
+    for(int i = 0; this->length; i++){
+        delete this->getNode(i);
+    }
 }
 
 //deep copy constructor

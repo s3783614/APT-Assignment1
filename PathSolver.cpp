@@ -134,17 +134,20 @@ void PathSolver::forwardSearch(Env env){
         currentNode = closest;
         printMovement(env, *currentNode);
 
-        usleep(100000);
+        // usleep(100000);
     }while(!nodesExplored->getNode(nodesExplored->getLength() - 1)->equalTo(*goalNode));
     
     printSolution(env);
 
     //MAP OUT WHAT IS HAPPENING CAUSE THIS COON IS JUMPING PLACES THAT HE IS NOT MEANT TO BE GOING 
     std::cout << "You reached there!" << std::endl;
+
     delete goalNode;
     delete currentNode;
     delete tempNode;
+    delete closest;
     
+    delete openList;
         
 
 
