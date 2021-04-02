@@ -20,8 +20,9 @@ NodeList::NodeList(NodeList& other){
     this->length = other.length;
     
     for(int i = 0; i < other.length;i++){
-        nodes[i] = new Node(other.getNode(i)->getRow(), other.getNode(i)->getCol(),
-                                            other.getNode(i)->getDistanceTraveled());
+        nodes[i] = new Node(other.getNode(i)->getRow(), 
+        other.getNode(i)->getCol(),
+        other.getNode(i)->getDistanceTraveled());
     }
 }
 

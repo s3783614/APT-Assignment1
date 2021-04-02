@@ -32,6 +32,7 @@ public:
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
     void printSolution(Env env);
+    void printMovement(Env env, Node currentNode);
 private:
     /*                                           */
     /* DO NOT MOFIFY THESE VARIABLES             */
