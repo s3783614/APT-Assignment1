@@ -12,9 +12,9 @@ Node::Node(int row, int col, int dist_traveled)
 
 Node::~Node(){
     // TODO
-    // delete this->row;
-    // delete this->col;
-    // delete this->dist_traveled;
+    // delete row;
+    // delete col;
+    // delete dist_traveled;
 }
 
 int Node::getRow(){

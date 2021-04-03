@@ -31,7 +31,7 @@ public:
     /*                                           */
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
-    void printSolution(Env env);
+    void printSolution(Env env, NodeList* closedList);
     void printMovement(Env env, Node currentNode);
 private:
     /*                                           */
@@ -41,6 +41,7 @@ private:
     // Nodes explored in forward search algorithm
     //closed
     NodeList* nodesExplored;
+    NodeList* closedList;
     
 
     /*                                           */

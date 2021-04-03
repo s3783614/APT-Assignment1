@@ -10,10 +10,12 @@ NodeList::NodeList(){
 //destructor
 NodeList::~NodeList(){
     // TODO
-
-    for(int i = 0; this->length; i++){
+    
+    for(int i = 0; i < this->length; i++){
+        // std::cout << "deconstructor called" << std::endl;
         delete this->getNode(i);
     }
+    
 }
 
 //deep copy constructor
