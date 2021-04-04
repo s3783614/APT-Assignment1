@@ -17,7 +17,7 @@ void readEnvStdin(Env env);
 
 // Print out a Environment to standard output with path.
 // To be implemented for Milestone 3
-void printEnvStdout(Env env/*, NodeList* solution*/);
+void printEnvStdout(Env env, NodeList* solution);
 
 
 int main(int argc, char** argv){
@@ -44,9 +44,9 @@ int main(int argc, char** argv){
 
     // Get the path
     // THIS WILL ONLY WORK IF YOU'VE FINISHED MILESTONE 3
-    // NodeList* solution = pathSolver->getPath(env);
+    NodeList* solution = pathSolver->getPath(env);
 
-    // printEnvStdout(env/*, solution*/);
+    printEnvStdout(env, solution);
 
     delete pathSolver;
     delete exploredPositions;
@@ -63,14 +63,14 @@ void readEnvStdin(Env env){
     }
 }
 
-void printEnvStdout(Env env/*, NodeList* solution*/) {
+void printEnvStdout(Env env, NodeList* solution) {
     //TODO
     for(int row = 0; row < ENV_DIM; row++){
         
         for(int col = 0; col < ENV_DIM; col++){
             std::cout << env[row][col];
         }
-        std::cout << std::endl;
+        std::cout << " " << row << std::endl;
     }
 }
 

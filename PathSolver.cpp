@@ -23,8 +23,6 @@ void PathSolver::forwardSearch(Env env){
     NodeList* openList = new NodeList();
     closedList = new NodeList();
 
-
-
     for(int row = 0; row < ENV_DIM; row++){
         for(int col = 0; col < ENV_DIM; col++){
 
@@ -38,17 +36,16 @@ void PathSolver::forwardSearch(Env env){
                 startNode = new Node(row,col,0);
                 openList->addElement(startNode);
             }
-            std::cout << env[row][col];
+            // std::cout << env[row][col];
             
         }
-        std::cout << " " << row << std::endl;
+        // std::cout << " " << row << std::endl;
     }
 
     
     // std::cout << "start: " << startNode->getCol() << ", " << startNode->getRow() <<std::endl;
     // std::cout << "goal: " << goalNode->getCol() << ", " << goalNode->getRow() <<std::endl;
     // std::cout << "openList[0] : (" << openList->getNode(0)->getCol() << ", " << openList->getNode(0)->getRow() << ") " << std::endl;
-
 
     // std::cout << "Current position:   " << startNode->getCurrentPosition(env) << std::endl;
 
@@ -171,7 +168,6 @@ void PathSolver::forwardSearch(Env env){
 
 }
 
-
 void PathSolver::printSolution(Env env, NodeList* closedList){
 
     for(int row = 0; row < ENV_DIM; row++){
@@ -217,7 +213,20 @@ NodeList* PathSolver::getNodesExplored(){
 //do later
 NodeList* PathSolver::getPath(Env env){
     // TODO
-    return nullptr;
+
+    NodeList* finalPath = new NodeList();
+    Node* goal = nodesExplored->getNode(nodesExplored->getLength()-1);
+
+    std::cout << "goal Node: " << goal->getRow() << ", " <<goal->getCol() << ", " << goal->getDistanceTraveled() << std::endl;
+
+    for(int i = nodesExplored->getLength()-1; i > 0; i--){
+
+        std::cout << "Node [ " << i << " ]: (" << nodesExplored->getNode(i)->getRow() << ", " <<nodesExplored->getNode(i)->getCol() 
+                                                << ", " << nodesExplored->getNode(i)->getDistanceTraveled() << " )" << std::endl;
+
+    }
+
+    return finalPath;
 }
 
 //-----------------------------
