@@ -68,7 +68,28 @@ void printEnvStdout(Env env, NodeList* solution) {
     for(int row = 0; row < ENV_DIM; row++){
         
         for(int col = 0; col < ENV_DIM; col++){
-            std::cout << env[row][col];
+
+            
+
+        }
+        //printing out the row for the maze
+        std::cout << " " << row << std::endl;
+    }
+
+
+
+
+    //Immediate solution without the directions
+    for(int row = 0; row < ENV_DIM; row++){
+        
+        for(int col = 0; col < ENV_DIM; col++){
+
+            if(solution->contains(Node(row,col,0))){
+                std::cout << "X";
+            }
+            else{
+                std::cout << env[row][col];
+            }
         }
         std::cout << " " << row << std::endl;
     }

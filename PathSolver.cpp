@@ -143,7 +143,7 @@ void PathSolver::forwardSearch(Env env){
     }while(!closedList->getNode(closedList->getLength() - 1)->equalTo(*goalNode) && 
            openList->getLength() != closedList->getLength());
     
-    // printSolution(env, closedList);
+    printSolution(env, closedList);
 
     //MAP OUT WHAT IS HAPPENING CAUSE THIS COON IS JUMPING PLACES THAT HE IS NOT MEANT TO BE GOING 
 
@@ -179,15 +179,16 @@ NodeList* PathSolver::getPath(Env env){
     // TODO
 
     NodeList* finalPath = new NodeList();
+    //declared this cause i want it to start after this
     Node* goal = nodesExplored->getNode(nodesExplored->getLength()-1);
 
-    std::cout << "goal Node: " << goal->getRow() << ", " <<goal->getCol() << ", " << goal->getDistanceTraveled() << std::endl;
+    // std::cout << "goal Node: " << goal->getRow() << ", " <<goal->getCol() << ", " << goal->getDistanceTraveled() << std::endl;
 
-    // nodesExplored->getNode(i)
-    for(int i = nodesExplored->getLength()-1; i >= 0; i--){
+    // nodesExplored->getNode(i) && > 0 cause u need to display start
+    for(int i = nodesExplored->getLength()-1; i > 0; i--){
 
-        std::cout << "Node [ " << i << " ]: (" << nodesExplored->getNode(i)->getRow() << ", " <<nodesExplored->getNode(i)->getCol() 
-                                                << ", " << nodesExplored->getNode(i)->getDistanceTraveled() << " )" << std::endl;
+        // std::cout << "Node [ " << i << " ]: (" << nodesExplored->getNode(i)->getRow() << ", " <<nodesExplored->getNode(i)->getCol() 
+        //                                         << ", " << nodesExplored->getNode(i)->getDistanceTraveled() << " )" << std::endl;
 
         if(nodesExplored->getNode(i)->getDistanceTraveled() == (goal->getDistanceTraveled()-1) ){
 
@@ -196,26 +197,33 @@ NodeList* PathSolver::getPath(Env env){
                     goal->getLeftNode(env).equalTo(*(nodesExplored->getNode(i))) ||
                     goal->getRightNode(env).equalTo(*(nodesExplored->getNode(i))) ){
 
-                std::cout << "goal Node before: " << goal->getRow() << ", " <<goal->getCol() << ", " << goal->getDistanceTraveled() << std::endl;
+                // std::cout << "goal Node before: " << goal->getRow() << ", " <<goal->getCol() << ", " << goal->getDistanceTraveled() << std::endl;
                 goal = nodesExplored->getNode(i);
-                std::cout << "goal Node after: " << goal->getRow() << ", " <<goal->getCol() << ", " << goal->getDistanceTraveled() << std::endl;
+                // std::cout << "goal Node after: " << goal->getRow() << ", " <<goal->getCol() << ", " << goal->getDistanceTraveled() << std::endl;
                 std::cout << std::endl;
 
                 finalPath->addElement(goal);
                 // std::cout << "finalPath [" << i << "] : " << finalPath->getNode(i)->getRow() << ", " << finalPath->getNode(i)->getCol() <<
                 //              ", " << finalPath->getNode(i)->getDistanceTraveled() << "added to  finalPath" << std::endl;
+
+                printMovement(env,*goal);
+                std::string uslessElement = "";
+                std::cout << uslessElement;
             }
 
         }
-
         
-
     }
 
     for(int i = 0; i < finalPath->getLength(); i++){
+
+    }
+
+    //prints all the nodes in the final path array
+    for(int i = 0; i < finalPath->getLength(); i++){
             std::cout << "finalPath [" << i << "] : (" << finalPath->getNode(i)->getRow() << ", " << finalPath->getNode(i)->getCol() <<
                              ", " << finalPath->getNode(i)->getDistanceTraveled() << ") added to  finalPath" << std::endl;
-        }
+    }
 
     return finalPath;
 }
