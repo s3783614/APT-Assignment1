@@ -116,3 +116,5 @@ Node Node::getRightNode(Env env){
     int distTravRead = (this->dist_traveled+1);
     return Node(rowRead, colRead, distTravRead);
 }
+
+

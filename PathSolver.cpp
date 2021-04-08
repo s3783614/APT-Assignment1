@@ -170,6 +170,7 @@ void PathSolver::forwardSearch(Env env){
 
 NodeList* PathSolver::getNodesExplored(){
     
+    // return nodesExplored;
     return new NodeList(*nodesExplored);
     
 }
@@ -192,38 +193,41 @@ NodeList* PathSolver::getPath(Env env){
 
         if(nodesExplored->getNode(i)->getDistanceTraveled() == (goal->getDistanceTraveled()-1) ){
 
-            if( goal->getTopNode(env).equalTo(*(nodesExplored->getNode(i))) ||
-                    goal->getBottomNode(env).equalTo(*(nodesExplored->getNode(i))) ||
-                    goal->getLeftNode(env).equalTo(*(nodesExplored->getNode(i))) ||
-                    goal->getRightNode(env).equalTo(*(nodesExplored->getNode(i))) ){
+            if( goal->getTopNode(env).equalTo(*(nodesExplored->getNode(i)))    ||
+                goal->getBottomNode(env).equalTo(*(nodesExplored->getNode(i))) ||
+                goal->getLeftNode(env).equalTo(*(nodesExplored->getNode(i)))   ||
+                goal->getRightNode(env).equalTo(*(nodesExplored->getNode(i)))  ){
 
                 // std::cout << "goal Node before: " << goal->getRow() << ", " <<goal->getCol() << ", " << goal->getDistanceTraveled() << std::endl;
                 goal = nodesExplored->getNode(i);
                 // std::cout << "goal Node after: " << goal->getRow() << ", " <<goal->getCol() << ", " << goal->getDistanceTraveled() << std::endl;
-                std::cout << std::endl;
+                // std::cout << std::endl;
 
                 finalPath->addElement(goal);
                 // std::cout << "finalPath [" << i << "] : " << finalPath->getNode(i)->getRow() << ", " << finalPath->getNode(i)->getCol() <<
                 //              ", " << finalPath->getNode(i)->getDistanceTraveled() << "added to  finalPath" << std::endl;
 
-                printMovement(env,*goal);
-                std::string uslessElement = "";
-                std::cout << uslessElement;
+
+                //Print debugging information
+                // printMovement(env,*goal);
+                // std::string uslessElement = "";
+                // std::cout << uslessElement;
             }
 
         }
-        
+        // 1800640886
     }
 
-    for(int i = 0; i < finalPath->getLength(); i++){
+    //template inCase
+    // for(int i = 0; i < finalPath->getLength(); i++){
 
-    }
+    // }
 
     //prints all the nodes in the final path array
-    for(int i = 0; i < finalPath->getLength(); i++){
-            std::cout << "finalPath [" << i << "] : (" << finalPath->getNode(i)->getRow() << ", " << finalPath->getNode(i)->getCol() <<
-                             ", " << finalPath->getNode(i)->getDistanceTraveled() << ") added to  finalPath" << std::endl;
-    }
+    // for(int i = 0; i < finalPath->getLength(); i++){
+    //         std::cout << "finalPath [" << i << "] : (" << finalPath->getNode(i)->getRow() << ", " << finalPath->getNode(i)->getCol() <<
+    //                          ", " << finalPath->getNode(i)->getDistanceTraveled() << ") added to  finalPath" << std::endl;
+    // }
 
     return finalPath;
 }
@@ -236,7 +240,7 @@ void PathSolver::printSolution(Env env, NodeList* closedList){
         for(int col = 0; col < ENV_DIM; col++){
 
             if(closedList->contains(Node(row,col,0))){
-                std::cout << "*";
+                std::cout << "x";
             }
             else{
                 std::cout << env[row][col];

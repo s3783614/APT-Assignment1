@@ -4,7 +4,7 @@
 //constructor
 NodeList::NodeList(){
     // TODO
-    this->length = 0;        
+    this->length = 0;
 }
 
 //destructor
