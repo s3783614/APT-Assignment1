@@ -12,7 +12,6 @@ NodeList::~NodeList(){
     // TODO
     
     for(int i = 0; i < this->length; i++){
-        // std::cout << "deconstructor called" << std::endl;
         delete this->getNode(i);
     }
     

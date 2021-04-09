@@ -44,8 +44,6 @@ public:
     Node getLeftNode(Env env);
     Node getRightNode(Env env);
 
-    
-
 private:
     /*                                           */
     /* DO NOT MOFIFY THESE VARIABLES             */

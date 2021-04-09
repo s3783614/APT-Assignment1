@@ -65,36 +65,6 @@ void readEnvStdin(Env env){
 
 void printEnvStdout(Env env, NodeList* solution) {
     //TODO
-    // Node* tempSolutionNode = nullptr;    
-
-   /* Node* goalNode = nullptr;
-    Node* startNode = nullptr;
-    for(int row = 0; row < ENV_DIM; row++){
-        for(int col = 0; col < ENV_DIM; col++){
-
-            if(env[row][col] == SYMBOL_GOAL){
-                goalNode = new Node(row,col,0);
-            }
-            else if(env[row][col] == SYMBOL_START){
-                startNode = new Node(row,col,0);
-            }
-            // std::cout << env[row][col];
-            
-        }
-        // std::cout << " " << row << std::endl;
-    }
-
-    std::cout << "start: " << startNode->getRow() << ", " << startNode->getCol() <<std::endl;
-    std::cout << "goal: " << goalNode->getRow() << ", " << goalNode->getCol() <<std::endl;*/
-
-
-    // for(int i = 0; i < solution->getLength(); i++){
-    //     Node* current = solution->getNode(i);
-    //     std::cout << " Current [" << i << "]: " << current->getRow() << "," << current->getCol() << std::endl;
-    // }
-
-    
-
 
     for(int i = solution->getLength()-1; i >= 0; i--){
         
@@ -106,79 +76,48 @@ void printEnvStdout(Env env, NodeList* solution) {
         // // std::cout << solution->contains() << std::endl;
         
 
-        if(((current->readTopCharacter(env) == SYMBOL_EMPTY) || (current->readTopCharacter(env) == SYMBOL_GOAL) ) && (solution->contains(current->getTopNode(env)) || (current->readTopCharacter(env) == SYMBOL_GOAL)) ){
+        if(((current->readTopCharacter(env) == SYMBOL_EMPTY) || (current->readTopCharacter(env) == SYMBOL_GOAL) ) && 
+            (solution->contains(current->getTopNode(env)) || (current->readTopCharacter(env) == SYMBOL_GOAL)) )
+        {
             env[current->getRow()][current->getCol()] = '^';
         }
 
-        if(((current->readBottomCharacter(env) == SYMBOL_EMPTY) || (current->readBottomCharacter(env) == SYMBOL_GOAL)) && (solution->contains(current->getBottomNode(env)) || (current->readBottomCharacter(env) == SYMBOL_GOAL) ) ){
+        if(((current->readBottomCharacter(env) == SYMBOL_EMPTY) || (current->readBottomCharacter(env) == SYMBOL_GOAL)) && 
+            (solution->contains(current->getBottomNode(env)) || (current->readBottomCharacter(env) == SYMBOL_GOAL) ) )
+        {
             env[current->getRow()][current->getCol()] = 'V';
         }
 
-        if(((current->readLeftCharacter(env) == SYMBOL_EMPTY) || (current->readLeftCharacter(env) == SYMBOL_GOAL) ) && (solution->contains(current->getLeftNode(env)) || (current->readLeftCharacter(env) == SYMBOL_GOAL) ) ){
+        if(((current->readLeftCharacter(env) == SYMBOL_EMPTY) || (current->readLeftCharacter(env) == SYMBOL_GOAL) ) && 
+            (solution->contains(current->getLeftNode(env)) || (current->readLeftCharacter(env) == SYMBOL_GOAL) ) )
+        {
             env[current->getRow()][current->getCol()] = '<';
         }
 
-        if(((current->readRightCharacter(env) == SYMBOL_EMPTY) || (current->readRightCharacter(env) == SYMBOL_GOAL)) && (solution->contains(current->getRightNode(env)) || (current->readRightCharacter(env) == SYMBOL_GOAL) ) ){
+        if(((current->readRightCharacter(env) == SYMBOL_EMPTY) || (current->readRightCharacter(env) == SYMBOL_GOAL)) && 
+            (solution->contains(current->getRightNode(env)) || (current->readRightCharacter(env) == SYMBOL_GOAL) ) )
+        {
             env[current->getRow()][current->getCol()] = '>';
         }
 
-
     }
 
-
-
-
-    /*for(int i = solution->getLength(); i >= 0; i--){
-
-
-        // std::cout << "solution [" << i << "]: " << solution->getLength() << std::endl;
-        
-        Node* current = solution->getNode(i);
-
-        // std::cout << " Current [" << i << "]: " << current->getRow() << "," << current->getCol() << std::endl;
-
-        // go thru past list for each po get x and y then go into the map and at that postion repalce with the corrent
-
-
-        
-        
-        std::cout << "Current node: (" << current->getCol() << "," << current->getRow() << "," <<
-                                current->getDistanceTraveled() << ") " << std::endl;
-
-
-   
-    
-
-    // for(int row = 0; row < ENV_DIM; row++){
-        
-    //     for(int col = 0; col < ENV_DIM; col++){
-
-    //         if(solution->contains(Node(row,col,0))){
-    //             std::cout << "X";
-    //         }
-    //         else{
-    //             std::cout << env[row][col];
-    //         }
-    //     }
-    //     std::cout << " " << row << std::endl;
-    // }
-    }
-    */
-
-
-    //Immediate solution without the directions
+    //For printing the solution
     for(int row = 0; row < ENV_DIM; row++){
         
         for(int col = 0; col < ENV_DIM; col++){
 
-            
             std::cout << env[row][col];
             
         }
-        std::cout << " " << row << std::endl;
+
+        if(row != ENV_DIM - 1 )
+        {
+            std::cout << std::endl;
+        }
+        
     }
 
-    std::cout << std::endl;
 }
 
 void testNode() {

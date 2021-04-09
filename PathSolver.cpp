@@ -8,12 +8,11 @@ PathSolver::PathSolver(){
 }
 
 PathSolver::~PathSolver(){
-    // TODO
     delete this->nodesExplored;
 }
 
 void PathSolver::forwardSearch(Env env){
-    // not need
+
     
     Node* startNode = new Node(0,0,0);//ini to nullptr
     Node* goalNode = new Node(0,0,0);
@@ -37,11 +36,9 @@ void PathSolver::forwardSearch(Env env){
                 openList->addElement(startNode);
             }
             // std::cout << env[row][col];
-            
         }
         // std::cout << " " << row << std::endl;
     }
-
     
     // std::cout << "start: " << startNode->getCol() << ", " << startNode->getRow() <<std::endl;
     // std::cout << "goal: " << goalNode->getCol() << ", " << goalNode->getRow() <<std::endl;
@@ -143,11 +140,11 @@ void PathSolver::forwardSearch(Env env){
     }while(!closedList->getNode(closedList->getLength() - 1)->equalTo(*goalNode) && 
            openList->getLength() != closedList->getLength());
     
-    printSolution(env, closedList);
+    // printSolution(env, closedList);
 
     //MAP OUT WHAT IS HAPPENING CAUSE THIS COON IS JUMPING PLACES THAT HE IS NOT MEANT TO BE GOING 
 
-    std::cout << "You reached there!" << std::endl;
+    // std::cout << "You reached there!" << std::endl;
 
     //just for inspection purposes
     /*std::cout << "final position: " <<  closedList->getNode(closedList->getLength()-1)->getCol() << "," << 
@@ -215,7 +212,7 @@ NodeList* PathSolver::getPath(Env env){
             }
 
         }
-        // 1800640886
+        // 1800640886 -- media super
     }
 
     //template inCase
