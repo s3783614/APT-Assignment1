@@ -43,48 +43,70 @@ void PathSolver::forwardSearch(Env env){
 
     do{
 
-        //checks the top character to see for free space - then checks for the node in availability
-        if((currentNode->readTopCharacter(env) == SYMBOL_EMPTY || currentNode->readTopCharacter(env) == SYMBOL_GOAL) && 
-        !openList->contains(currentNode->getTopNode(env)) && !closedList->contains(currentNode->getTopNode(env)) )
+        //Checks if TOP character is empty or goal
+        if((currentNode->readTopCharacter(env) == SYMBOL_EMPTY ||
+            currentNode->readTopCharacter(env) == SYMBOL_GOAL) && 
+            !openList->contains(currentNode->getTopNode(env)) && 
+            !closedList->contains(currentNode->getTopNode(env)) )
             {
-                Node* tempTopNode = new Node(currentNode->getRow()-1, currentNode->getCol(), currentNode->getDistanceTraveled()+1); 
+                Node* tempTopNode = new Node(currentNode->getRow()-1,
+                                          currentNode->getCol(),
+                                          currentNode->getDistanceTraveled()+1); 
                 openList->addElement(tempTopNode);
                 delete tempTopNode;
             }
         
-        if((currentNode->readBottomCharacter(env) == SYMBOL_EMPTY || currentNode->readBottomCharacter(env) == SYMBOL_GOAL) && 
-        !openList->contains(currentNode->getBottomNode(env)) && !closedList->contains(currentNode->getBottomNode(env)) )
+        //Checks if BOTTOM character is empty or goal
+        if((currentNode->readBottomCharacter(env) == SYMBOL_EMPTY ||
+            currentNode->readBottomCharacter(env) == SYMBOL_GOAL) &&
+            !openList->contains(currentNode->getBottomNode(env)) &&
+            !closedList->contains(currentNode->getBottomNode(env)) )
             {
-                Node* tempBottomNode = new Node(currentNode->getRow()+1, currentNode->getCol(), currentNode->getDistanceTraveled()+1);
+                Node* tempBottomNode = new Node(currentNode->getRow()+1,
+                                          currentNode->getCol(),
+                                          currentNode->getDistanceTraveled()+1);
                 openList->addElement(tempBottomNode);
                 delete tempBottomNode;
             }
         
-        if((currentNode->readLeftCharacter(env) == SYMBOL_EMPTY || currentNode->readLeftCharacter(env) == SYMBOL_GOAL) && 
-        !openList->contains(currentNode->getLeftNode(env)) && !closedList->contains(currentNode->getLeftNode(env)) )
+        //Checks if LEFT character is empty or goal
+        if((currentNode->readLeftCharacter(env) == SYMBOL_EMPTY ||
+            currentNode->readLeftCharacter(env) == SYMBOL_GOAL) &&
+            !openList->contains(currentNode->getLeftNode(env)) &&
+            !closedList->contains(currentNode->getLeftNode(env)) )
             {
-                Node* tempLeftNode = new Node(currentNode->getRow(), currentNode->getCol()-1, currentNode->getDistanceTraveled()+1);
+                Node* tempLeftNode = new Node(currentNode->getRow(),
+                                          currentNode->getCol()-1,
+                                          currentNode->getDistanceTraveled()+1);
                 openList->addElement(tempLeftNode);
                 delete tempLeftNode;
             }
         
-        if((currentNode->readRightCharacter(env) == SYMBOL_EMPTY || currentNode->readRightCharacter(env) == SYMBOL_GOAL) && 
-        !openList->contains(currentNode->getRightNode(env)) && !closedList->contains(currentNode->getRightNode(env)) )
+        //Checks if RIGHT character is empty or goal
+        if((currentNode->readRightCharacter(env) == SYMBOL_EMPTY ||
+            currentNode->readRightCharacter(env) == SYMBOL_GOAL) &&
+            !openList->contains(currentNode->getRightNode(env)) &&
+            !closedList->contains(currentNode->getRightNode(env)) )
             {
-                Node* tempRightNode = new Node(currentNode->getRow(), currentNode->getCol()+1, currentNode->getDistanceTraveled()+1); 
+                Node* tempRightNode = new Node(currentNode->getRow(),
+                                          currentNode->getCol()+1,
+                                          currentNode->getDistanceTraveled()+1); 
                 openList->addElement(tempRightNode);
                 delete tempRightNode;
             }
 
+        //resets the closest node to tempNode
         closest = tempNode;
-
+        /*searches the openlist and adds the shortest distanced 
+                                            node to closedlist*/
         for(int i = 0; i < openList->getLength(); i++){
 
-            if(openList->getNode(i)->getEstimatedDist2Goal(goalNode) < closest->getEstimatedDist2Goal(goalNode) &&
-              !closedList->contains(*(openList->getNode(i))) && !openList->getNode(i)->equalTo(*currentNode) ){
-
+            if(openList->getNode(i)->getEstimatedDist2Goal(goalNode) <
+              closest->getEstimatedDist2Goal(goalNode) &&
+              !closedList->contains(*(openList->getNode(i))) &&
+              !openList->getNode(i)->equalTo(*currentNode) )
+            {
                 closest = openList->getNode(i);
-
             }
 
         }
@@ -101,9 +123,7 @@ void PathSolver::forwardSearch(Env env){
 
     delete goalNode;
     delete startNode;
-
     delete tempNode;
-
     delete openList;
     delete closedList;
 
@@ -115,10 +135,11 @@ NodeList* PathSolver::getNodesExplored(){
 
 
 NodeList* PathSolver::getPath(Env env){
-    // TODO
 
+    //list of shortest distance nodes
     NodeList* finalPath = new NodeList();
 
+    //sets the goal node 
     Node* goal = nodesExplored->getNode(nodesExplored->getLength()-1);
 
     for(int i = nodesExplored->getLength()-1; i > 0; i--){
@@ -132,15 +153,10 @@ NodeList* PathSolver::getPath(Env env){
                goal->getLeftNode(env).equalTo(*(nodesExplored->getNode(i))) ||
                goal->getRightNode(env).equalTo(*(nodesExplored->getNode(i))) )
             {
-
                 goal = nodesExplored->getNode(i);
-
                 finalPath->addElement(goal);
-
             }
-
         }
-
     }
 
     return finalPath;
