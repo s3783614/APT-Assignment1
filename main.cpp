@@ -1,7 +1,7 @@
 /*
 For this assignment I believe that I have successfully completed milestone 1,2,3
 I had a bit of difficulty when I initially started the assignment, but one of the
-lecturers mentioned it would be a good place to start by reading one node up,
+tutors mentioned it would be a good place to start by reading one node up,
 left, down and right. Using that advice I went on to scan the entire environment
 using a few extra methods I wrote for the node class. Another problem 
 encountered was acutally finding the shortest distance node in the openlist but 
@@ -91,17 +91,19 @@ void printEnvStdout(Env env, NodeList* solution) {
 
     for(int i = solution->getLength()-1; i >= 0; i--){
 
+        //short hand so there is less code repetion
+        Node* current = solution->getNode(i);
 
-        Node* current = solution->getNode(i);        
-
-        if( ( (current->readTopCharacter(env) == SYMBOL_EMPTY)   ||
-              (current->readTopCharacter(env) == SYMBOL_GOAL) )  && 
+        //Check if TOP character is empty and in the solution
+        if( ( (current->readTopCharacter(env) == SYMBOL_EMPTY) ||
+              (current->readTopCharacter(env) == SYMBOL_GOAL) ) && 
             (solution->contains(current->getTopNode(env)) || 
             (current->readTopCharacter(env) == SYMBOL_GOAL) ) )
         {
             env[current->getRow()][current->getCol()] = UPWARD;
         }
 
+        //Check if BOTTOM character is empty and in the solution
         if( ( (current->readBottomCharacter(env) == SYMBOL_EMPTY) || 
               (current->readBottomCharacter(env) == SYMBOL_GOAL) )&& 
             (solution->contains(current->getBottomNode(env)) ||
@@ -110,6 +112,7 @@ void printEnvStdout(Env env, NodeList* solution) {
             env[current->getRow()][current->getCol()] = DOWNWARD;
         }
 
+        //Check if LEFT character is empty and in the solution
         if( ( (current->readLeftCharacter(env) == SYMBOL_EMPTY) ||
               (current->readLeftCharacter(env) == SYMBOL_GOAL) )&&
             (solution->contains(current->getLeftNode(env)) ||
@@ -118,6 +121,7 @@ void printEnvStdout(Env env, NodeList* solution) {
             env[current->getRow()][current->getCol()] = LEFTWARD;
         }
 
+        //Check if RIGHT character is empty and in the solution
         if( ( (current->readRightCharacter(env) == SYMBOL_EMPTY) ||
               (current->readRightCharacter(env) == SYMBOL_GOAL) )&&
             (solution->contains(current->getRightNode(env)) ||
@@ -136,7 +140,7 @@ void printEnvStdout(Env env, NodeList* solution) {
             std::cout << env[row][col];
             
         }
-
+        //to avoid printing extra line at the end of a file
         if(row != ENV_DIM - 1 )
         {
             std::cout << std::endl;
