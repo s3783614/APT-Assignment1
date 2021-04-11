@@ -93,8 +93,9 @@ void PathSolver::forwardSearch(Env env){
 
         currentNode = closest;
 
-    }while(!closedList->getNode(closedList->getLength() - 1)->equalTo(*goalNode) && 
-           openList->getLength() != closedList->getLength());
+    }
+    while(!closedList->getNode(closedList->getLength() - 1)->equalTo(*goalNode) 
+          && openList->getLength() != closedList->getLength());
 
     nodesExplored = new NodeList(*closedList);
 
@@ -122,12 +123,15 @@ NodeList* PathSolver::getPath(Env env){
 
     for(int i = nodesExplored->getLength()-1; i > 0; i--){
 
-        if(nodesExplored->getNode(i)->getDistanceTraveled() == (goal->getDistanceTraveled()-1) ){
+        if(nodesExplored->getNode(i)->getDistanceTraveled() ==
+          (goal->getDistanceTraveled()-1) )
+        {
 
-            if( goal->getTopNode(env).equalTo(*(nodesExplored->getNode(i)))    ||
-                goal->getBottomNode(env).equalTo(*(nodesExplored->getNode(i))) ||
-                goal->getLeftNode(env).equalTo(*(nodesExplored->getNode(i)))   ||
-                goal->getRightNode(env).equalTo(*(nodesExplored->getNode(i)))  ){
+            if(goal->getTopNode(env).equalTo(*(nodesExplored->getNode(i))) ||
+               goal->getBottomNode(env).equalTo(*(nodesExplored->getNode(i))) ||
+               goal->getLeftNode(env).equalTo(*(nodesExplored->getNode(i))) ||
+               goal->getRightNode(env).equalTo(*(nodesExplored->getNode(i))) )
+            {
 
                 goal = nodesExplored->getNode(i);
 
