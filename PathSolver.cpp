@@ -165,3 +165,35 @@ NodeList* PathSolver::getPath(Env env){
 
 //-----------------------------
 
+void PathSolver::printSolution(Env env, NodeList* closedList){
+
+    for(int row = 0; row < ENV_DIM; row++){
+        for(int col = 0; col < ENV_DIM; col++){
+
+            if(closedList->contains(Node(row,col,0))){
+                std::cout << "x";
+            }
+            else{
+                std::cout << env[row][col];
+            }
+            
+        }
+        std::cout << " " << row << std::endl;
+    }
+
+}
+
+void PathSolver::printMovement(Env env, Node currentNode){
+    for(int row = 0; row < ENV_DIM; row++){
+        for(int col = 0; col < ENV_DIM; col++){
+            if(row == currentNode.getRow() && col == currentNode.getCol()){
+                std::cout << "*";
+            }
+            else{
+                std::cout << env[row][col];
+            }
+        }
+        std::cout << std::endl;
+
+    }
+}

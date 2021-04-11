@@ -6,10 +6,13 @@ left, down and right. Using that advice I went on to scan the entire environment
 using a few extra methods I wrote for the node class. Another problem 
 encountered was acutally finding the shortest distance node in the openlist but 
 that was resolved through simply resetting a temporary node which had to big a 
-distance stored within it. Similarly milestone 3 seemed a bit difficulty at 
+distance stored within it. Similarly milestone 3 seemed a bit difficult at 
 start but it was just a matter of reading the assignment specifications as it 
 started that all we had to do was modify the maze directly so replace the '.' 
-with an UP, DOWN, LEFT, or RIGHT arrowhead.
+with an UP, DOWN, LEFT, or RIGHT arrowhead. This assignment was really
+challenging and required a lot of time and effort to implement, but I feel that 
+I have a greater understanding of how memory mangement and pointers and
+and functions, and classes work after completing the assignment partially.
 */
 #include <iostream>
 #include <fstream>
