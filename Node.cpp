@@ -42,9 +42,10 @@ void Node::setDistanceTraveled(int dist_traveled)
 
 int Node::getEstimatedDist2Goal(Node* goal){
     // TODO
-    manhatten_distance = std::abs(this->col - goal->getCol()) + std::abs(this->row - goal->getRow());
+    manhatten_distance = std::abs(this->col - goal->getCol()) + 
+                         std::abs(this->row - goal->getRow());
      
-    return (this->dist_traveled) + (manhatten_distance);
+    return ((this->dist_traveled) + (manhatten_distance));
 
 
 }

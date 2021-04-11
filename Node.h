@@ -23,7 +23,8 @@ public:
     int getDistanceTraveled();
     void setDistanceTraveled(int dist_traveled);
 
-    //getter for estimated dist to goal - need to return -> Manhatten distance + distance traveled
+    /*getter for estimated dist to goal - need to return -> Manhatten distance +
+    * distance traveled*/
     int getEstimatedDist2Goal(Node* goal);
 
     /*                                           */
