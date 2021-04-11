@@ -8,6 +8,13 @@
 #include "NodeList.h"
 #include "PathSolver.h"
 
+enum {
+    UPWARD = '^',
+    DOWNWARD = 'V',
+    LEFTWARD = '<',
+    RIGHTWARD = '>'
+};
+
 // Helper test functions
 void testNode();
 void testNodeList();
@@ -21,14 +28,17 @@ void printEnvStdout(Env env, NodeList* solution);
 
 
 int main(int argc, char** argv){
-    // THESE ARE SOME EXAMPLE FUNCTIONS TO HELP TEST YOUR CODE
-    // AS YOU WORK ON MILESTONE 2. YOU CAN UPDATE THEM YOURSELF
-    // AS YOU GO ALONG.
-    // COMMENT THESE OUT BEFORE YOU SUBMIT!!!
-    // std::cout << "TESTING - COMMENT THE OUT TESTING BEFORE YOU SUBMIT!!!" << std::endl;
-    // testNode();
-    // testNodeList();
-    // std::cout << "DONE TESTING" << std::endl << std::endl;
+    /*
+    * THESE ARE SOME EXAMPLE FUNCTIONS TO HELP TEST YOUR CODE
+    * AS YOU WORK ON MILESTONE 2. YOU CAN UPDATE THEM YOURSELF
+    * AS YOU GO ALONG.
+    * COMMENT THESE OUT BEFORE YOU SUBMIT!!!
+    * std::cout << "TESTING - COMMENT THE OUT TESTING BEFORE YOU SUBMIT!!!" << 
+    *                                                                 std::endl;
+    * testNode();
+    * testNodeList();
+    * std::cout << "DONE TESTING" << std::endl << std::endl;
+    */
 
     // Load Environment 
     Env env;
@@ -67,37 +77,40 @@ void printEnvStdout(Env env, NodeList* solution) {
     //TODO
 
     for(int i = solution->getLength()-1; i >= 0; i--){
-        
-        // std::cout << solution->contains(Node(row-1,col,0)) <<std::endl;
 
-        Node* current = solution->getNode(i);
-        // std::cout << " Current [" << i << "]: (" << current->getRow() << "," <<
-        // current->getCol() << "," << current->getDistanceTraveled() << ") " << std::endl;
-        // // std::cout << solution->contains() << std::endl;
-        
 
-        if(((current->readTopCharacter(env) == SYMBOL_EMPTY) || (current->readTopCharacter(env) == SYMBOL_GOAL) ) && 
-            (solution->contains(current->getTopNode(env)) || (current->readTopCharacter(env) == SYMBOL_GOAL)) )
+        Node* current = solution->getNode(i);        
+
+        if( ( (current->readTopCharacter(env) == SYMBOL_EMPTY)   ||
+              (current->readTopCharacter(env) == SYMBOL_GOAL) )  && 
+            (solution->contains(current->getTopNode(env)) || 
+            (current->readTopCharacter(env) == SYMBOL_GOAL) ) )
         {
-            env[current->getRow()][current->getCol()] = '^';
+            env[current->getRow()][current->getCol()] = UPWARD;
         }
 
-        if(((current->readBottomCharacter(env) == SYMBOL_EMPTY) || (current->readBottomCharacter(env) == SYMBOL_GOAL)) && 
-            (solution->contains(current->getBottomNode(env)) || (current->readBottomCharacter(env) == SYMBOL_GOAL) ) )
+        if( ( (current->readBottomCharacter(env) == SYMBOL_EMPTY) || 
+              (current->readBottomCharacter(env) == SYMBOL_GOAL) )&& 
+            (solution->contains(current->getBottomNode(env)) ||
+            (current->readBottomCharacter(env) == SYMBOL_GOAL) ) )
         {
-            env[current->getRow()][current->getCol()] = 'V';
+            env[current->getRow()][current->getCol()] = DOWNWARD;
         }
 
-        if(((current->readLeftCharacter(env) == SYMBOL_EMPTY) || (current->readLeftCharacter(env) == SYMBOL_GOAL) ) && 
-            (solution->contains(current->getLeftNode(env)) || (current->readLeftCharacter(env) == SYMBOL_GOAL) ) )
+        if( ( (current->readLeftCharacter(env) == SYMBOL_EMPTY) ||
+              (current->readLeftCharacter(env) == SYMBOL_GOAL) )&&
+            (solution->contains(current->getLeftNode(env)) ||
+            (current->readLeftCharacter(env) == SYMBOL_GOAL) ) )
         {
-            env[current->getRow()][current->getCol()] = '<';
+            env[current->getRow()][current->getCol()] = LEFTWARD;
         }
 
-        if(((current->readRightCharacter(env) == SYMBOL_EMPTY) || (current->readRightCharacter(env) == SYMBOL_GOAL)) && 
-            (solution->contains(current->getRightNode(env)) || (current->readRightCharacter(env) == SYMBOL_GOAL) ) )
+        if( ( (current->readRightCharacter(env) == SYMBOL_EMPTY) ||
+              (current->readRightCharacter(env) == SYMBOL_GOAL) )&&
+            (solution->contains(current->getRightNode(env)) ||
+            (current->readRightCharacter(env) == SYMBOL_GOAL) ) )
         {
-            env[current->getRow()][current->getCol()] = '>';
+            env[current->getRow()][current->getCol()] = RIGHTWARD;
         }
 
     }
@@ -162,5 +175,6 @@ void testNodeList() {
     std::cout << getB->getDistanceTraveled() << std::endl;
 
     // Print out the NodeList
-    std::cout << "PRINTING OUT A NODELIST IS AN EXERCISE FOR YOU TO DO" << std::endl;
+    std::cout << "PRINTING OUT A NODELIST IS AN EXERCISE FOR YOU TO DO" << 
+                                                                    std::endl;
 }

@@ -60,10 +60,6 @@ bool Node::equalTo(Node node){
     return checker;
 }
 
-char Node::getCurrentPosition(Env env){
-    return env[this->row][this->col];
-}
-
 char Node::readTopCharacter(Env env){
     int rowRead = (this->row-1);
     int colRead = (this->col);

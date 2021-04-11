@@ -31,8 +31,6 @@ public:
     /*                                           */
 
     bool equalTo(Node node);
-    
-    char getCurrentPosition(Env env);
 
     char readTopCharacter(Env env);
     char readBottomCharacter(Env env);
