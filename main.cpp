@@ -1,3 +1,16 @@
+/*
+For this assignment I believe that I have successfully completed milestone 1,2,3
+I had a bit of difficulty when I initially started the assignment, but one of the
+lecturers mentioned it would be a good place to start by reading one node up,
+left, down and right. Using that advice I went on to scan the entire environment
+using a few extra methods I wrote for the node class. Another problem 
+encountered was acutally finding the shortest distance node in the openlist but 
+that was resolved through simply resetting a temporary node which had to big a 
+distance stored within it. Similarly milestone 3 seemed a bit difficulty at 
+start but it was just a matter of reading the assignment specifications as it 
+started that all we had to do was modify the maze directly so replace the '.' 
+with an UP, DOWN, LEFT, or RIGHT arrowhead.
+*/
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
